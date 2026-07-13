@@ -247,14 +247,30 @@ else:
     # PAGINA 3: TIMETABLE / LINE-UP
     # ==========================================
     elif gekozen_menu == "🎵 Timetable / Line-up":
-        st.header("🎵 Liquicity 2026 Groeps-Timetable")
+        st.header("🎵 Liquicity Groeps-Timetable (All Stages)")
+        
+        # Uitgebreide line-up met de Galaxy, Lunar én Solar stages!
         liquicity_acts = [
+            # --- VRIJDAG ---
             {"Dag": "Vrijdag", "Tijd": "21:30 - 23:00", "Artiest": "Netsky", "Stage": "Galaxy"},
             {"Dag": "Vrijdag", "Tijd": "20:15 - 21:30", "Artiest": "Wilkinson", "Stage": "Galaxy"},
+            {"Dag": "Vrijdag", "Tijd": "19:00 - 20:15", "Artiest": "Technimatic", "Stage": "Lunar"},
+            {"Dag": "Vrijdag", "Tijd": "18:00 - 19:15", "Artiest": "Lenzman", "Stage": "Lunar"},
+            {"Dag": "Vrijdag", "Tijd": "17:00 - 18:00", "Artiest": "NCT", "Stage": "Solar"},
+            
+            # --- ZATERDAG ---
             {"Dag": "Zaterdag", "Tijd": "21:30 - 23:00", "Artiest": "Hybrid Minds", "Stage": "Galaxy"},
             {"Dag": "Zaterdag", "Tijd": "20:00 - 21:30", "Artiest": "Fox Stevenson (LIVE)", "Stage": "Galaxy"},
+            {"Dag": "Zaterdag", "Tijd": "18:30 - 20:00", "Artiest": "Koven", "Stage": "Lunar"},
+            {"Dag": "Zaterdag", "Tijd": "17:15 - 18:30", "Artiest": "Fred V", "Stage": "Lunar"},
+            {"Dag": "Zaterdag", "Tijd": "16:00 - 17:15", "Artiest": "T&Sugah", "Stage": "Solar"},
+            
+            # --- ZONDAG ---
             {"Dag": "Zondag", "Tijd": "22:00 - 23:30", "Artiest": "Andy C", "Stage": "Galaxy"},
-            {"Dag": "Zondag", "Tijd": "20:30 - 22:00", "Artiest": "Maduk", "Stage": "Galaxy"}
+            {"Dag": "Zondag", "Tijd": "20:30 - 22:00", "Artiest": "Maduk", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "19:15 - 20:30", "Artiest": "Etherwood", "Stage": "Lunar"},
+            {"Dag": "Zondag", "Tijd": "18:00 - 19:15", "Artiest": "Bcee", "Stage": "Lunar"},
+            {"Dag": "Zondag", "Tijd": "16:45 - 18:00", "Artiest": "Edlan", "Stage": "Solar"}
         ]
         
         if len(g_data["vrienden"]) == 0:
@@ -270,7 +286,7 @@ else:
                     for act in liquicity_acts:
                         a_name = act["Artiest"]
                         al_gevinkt = kiezende_vriend in g_data["timetable"].get(a_name, [])
-                        tijdelijke_vinkjes[a_name] = st.checkbox(f"⏱️ {act['Tijd']} | **{a_name}** ({act['Stage']})", value=al_gevinkt)
+                        tijdelijke_vinkjes[a_name] = st.checkbox(f"⏱️ {act['Dag']} {act['Tijd']} | **{a_name}** ({act['Stage']})", value=al_gevinkt)
                         
                     submit_timetable = st.form_submit_button("Mijn Line-up Voorkeuren Opslaan", type="primary")
                     
@@ -287,7 +303,7 @@ else:
                                 st.session_state.groeps_data["timetable"][a_name].remove(kiezende_vriend)
                         
                         sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
-                        st.success("Timetable bijgewerkt!")
+                        st.success("Timetable succesvol bijgewerkt!")
                         st.rerun()
                     
             with col2:
@@ -300,7 +316,9 @@ else:
                         "Dag": act["Dag"], "Tijd": act["Tijd"], "Artiest": a_name, "Stage": act["Stage"],
                         "Aantal": len(wie_gaan), "Wie gaan er mee?": ", ".join(wie_gaan) if wie_gaan else "Nog niemand (😭)"
                     })
-                st.dataframe(pd.DataFrame(timetable_data), use_container_width=True, hide_index=True)
+                # Sorteer netjes per dag en tijd
+                df_tt = pd.DataFrame(timetable_data)
+                st.dataframe(df_tt, use_container_width=True, hide_index=True)
 
     # ==========================================
     # PAGINA 4: GROEPS-PAKLIJST
