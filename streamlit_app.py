@@ -135,111 +135,172 @@ else:
     
     st.markdown(f"### 📍 Je bent nu hier: **{gekozen_menu}**")
     st.write("---")
+
+
 # ==========================================
 # PAGINA 1: DATUMS / FESTIVALS PRIKKEN
 # ==========================================
-if gekozen_menu == "👨‍🚀 Liquicity weekend":
-    st.header("Welk festival weekend gaan we pakken?")
-    
-    if len(g_data["vrienden"]) == 0:
-        st.info("Voeg eerst namen toe in de zijbalk om je voorkeur door te geven!")
-    else:
-        col1, col2 = st.columns(2)
-        with col1:
-            st.subheader("Jouw voorkeur doorgeven")
-            naam = st.selectbox("Wie ben je?", g_data["vrienden"], key="p1_user_selectbox")
-            opties = ["Volledig Liquicity Weekend 2026", "Alleen Vrijdag", "Alleen Zaterdag", "Alleen Zondag"]
-            
-            huidige_voorkeur = g_data["datums"].get(naam, [])
-            
-            with st.form(key="form_dates_static"):
-                gekozen_datums = st.multiselect("Welke festivals/weekenden kun jij?", opties, default=huidige_voorkeur, key="widget_dates_static")
-                submit_dates = st.form_submit_button("Voorkeur Opslaan")
+    if gekozen_menu == "👨‍🚀 Liquicity weekend":
+        st.header("Welk festival weekend gaan we pakken?")
+        
+        if len(g_data["vrienden"]) == 0:
+            st.info("Voeg eerst namen toe in de zijbalk om je voorkeur door te geven!")
+        else:
+            col1, col2 = st.columns(2)
+            with col1:
+                st.subheader("Jouw voorkeur doorgeven")
+                naam = st.selectbox("Wie ben je?", g_data["vrienden"], key="p1_user_selectbox")
+                opties = ["Volledig Liquicity Weekend 2026", "Alleen Vrijdag", "Alleen Zaterdag", "Alleen Zondag"]
                 
-                if submit_dates:
-                    st.session_state.groeps_data["datums"][naam] = gekozen_datums
-                    sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
-                    st.success("Voorkeur opgeslagen in database!")
-                    st.rerun()
+                huidige_voorkeur = g_data["datums"].get(naam, [])
                 
-        with col2:
-            st.subheader("📊 Live Stemresultaten")
-            stem_data = []
-            for persoon, festivals in g_data["datums"].items():
-                for f in festivals:
-                    stem_data.append({"Festival": f, "Wie": persoon, "Aantal": 1})
-            if stem_data:
-                df_stemmen = pd.DataFrame(stem_data)
-                st.bar_chart(data=df_stemmen, x="Festival", y="Aantal", color="Wie", stack=True)
-                st.write("**Gedetailleerd overzicht:**")
-                for p, festivals in g_data["datums"].items():
-                    if festivals:
-                        st.write(f"• **{p}** heeft gestemd op: {', '.join(festivals)}")
-            else:
-                st.info("Nog geen stemmen uitgebracht.")
-
-# ==========================================
-# PAGINA 2: KOSTEN VERREKENEN
-# ==========================================
-elif gekozen_menu == "💶 Tickets & Spullen Kosten":
-    st.header("💶 Festival Pot (Tickets, Drank, Muntjes)")
-    
-    if len(g_data["vrienden"]) == 0:
-        st.info("Voeg eerst namen toe in de zijbalk om de kostenpot te gebruiken!")
-    else:
-        col1, col2 = st.columns(2)
-        with col1:
-            st.subheader("Nieuwe festivaluitgave invoeren")
-            
-            with st.form(key="form_add_expense_isolated"):
-                wie_betaalt = st.selectbox("Wie heeft betaald?", g_data["vrienden"])
-                bedrag = st.number_input("Bedrag (€)", min_value=0.0, step=0.01, value=0.0)
-                omschrijving = st.text_input("Waarvoor? (bijv. 'Combi-tickets')")
-                submit_expense = st.form_submit_button("Uitgave Toevoegen")
-                
-                if submit_expense:
-                    if bedrag > 0 and omschrijving:
-                        st.session_state.groeps_data["uitgaven"].append({"Wie": wie_betaalt, "Bedrag": bedrag, "Omschrijving": omschrijving})
-                        sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
-                        st.success("Uitgave toegevoegd aan database!")
-                        st.rerun()
-
-        with col2:
-            st.subheader("📈 Tussenstand & Balans")
-            if g_data["uitgaven"]:
-                df_uitgaven = pd.DataFrame(g_data["uitgaven"])
-                st.dataframe(df_uitgaven, hide_index=True)
-                totaal = df_uitgaven["Bedrag"].sum()
-                per_persoon = totaal / len(g_data["vrienden"]) if g_data["vrienden"] else 0
-                st.metric("Totale kosten festival", f"€ {totaal:.2f}")
-                st.metric("Kosten per persoon", f"€ {per_persoon:.2f}")
-                
-                balans = {vriend: -per_persoon for vriend in g_data["vrienden"]}
-                for u in g_data["uitgaven"]:
-                    if u["Wie"] in balans:
-                        balans[u["Wie"]] += u["Bedrag"]
-                for persoon, geld in balans.items():
-                    if geld > 0.01:
-                        st.write(f"🟢 **{persoon}** krijgt nog **€ {geld:.2f}** terug.")
-                    elif geld < -0.01:
-                        st.write(f"🔴 **{persoon}** moet nog **€ {abs(geld):.2f}** betalen.")
-                    else:
-                        st.write(f"⚪ **{persoon}** staat precies quitte.")
-                st.write("---")
-                
-                with st.form(key="form_delete_expense_isolated"):
-                    opties_verwijderen = [f"{i}: {u['Wie']} - €{u['Bedrag']} ({u['Omschrijving']})" for i, u in enumerate(g_data["uitgaven"])]
-                    te_verwijderen = st.selectbox("Welke uitgave wil je wissen?", opties_verwijderen)
-                    submit_delete = st.form_submit_button("🔴 Geselecteerde uitgave wissen")
+                with st.form(key="form_dates_static"):
+                    gekozen_datums = st.multiselect("Welke festivals/weekenden kun jij?", opties, default=huidige_voorkeur, key="widget_dates_static")
+                    submit_dates = st.form_submit_button("Voorkeur Opslaan")
                     
-                    if submit_delete:
-                        index_to_delete = int(te_verwijderen.split(":"))
-                        st.session_state.groeps_data["uitgaven"].pop(index_to_delete)
+                    if submit_dates:
+                        st.session_state.groeps_data["datums"][naam] = gekozen_datums
                         sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
-                        st.success("Uitgave verwijderd uit database!")
+                        st.success("Voorkeur opgeslagen!")
                         st.rerun()
-            else:
-                st.info("Nog geen groepsuitgaven ingevoerd.")
+                    
+            with col2:
+                st.subheader("📊 Live Stemresultaten")
+                stem_data = []
+                for persoon, festivals in g_data["datums"].items():
+                    for f in festivals:
+                        stem_data.append({"Festival": f, "Wie": persoon, "Aantal": 1})
+                if stem_data:
+                    df_stemmen = pd.DataFrame(stem_data)
+                    st.bar_chart(data=df_stemmen, x="Festival", y="Aantal", color="Wie", stack=True)
+                    st.write("**Gedetailleerd overzicht:**")
+                    for p, festivals in g_data["datums"].items():
+                        if festivals:
+                            st.write(f"• **{p}** heeft gestemd op: {', '.join(festivals)}")
+                else:
+                    st.info("Nog geen stemmen uitgebracht.")
+
+    # ==========================================
+    # PAGINA 2: KOSTEN VERREKENEN
+    # ==========================================
+    elif gekozen_menu == "💶 Tickets & Spullen Kosten":
+        st.header("💶 Festival Pot (Tickets, Drank, Muntjes)")
+        
+        if len(g_data["vrienden"]) == 0:
+            st.info("Voeg eerst namen toe in de zijbalk om de kostenpot te gebruiken!")
+        else:
+            col1, col2 = st.columns(2)
+            with col1:
+                st.subheader("Nieuwe festivaluitgave invoeren")
+                
+                with st.form(key="form_add_expense_isolated"):
+                    wie_betaalt = st.selectbox("Wie heeft betaald?", g_data["vrienden"])
+                    bedrag = st.number_input("Bedrag (€)", min_value=0.0, step=0.01, value=0.0)
+                    omschrijving = st.text_input("Waarvoor? (bijv. 'Combi-tickets')")
+                    submit_expense = st.form_submit_button("Uitgave Toevoegen")
+                    
+                    if submit_expense:
+                        if bedrag > 0 and omschrijving:
+                            st.session_state.groeps_data["uitgaven"].append({"Wie": wie_betaalt, "Bedrag": bedrag, "Omschrijving": omschrijving})
+                            sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
+                            st.success("Uitgave toegevoegd!")
+                            st.rerun()
+
+            with col2:
+                st.subheader("📈 Tussenstand & Balans")
+                if g_data["uitgaven"]:
+                    df_uitgaven = pd.DataFrame(g_data["uitgaven"])
+                    st.dataframe(df_uitgaven, hide_index=True)
+                    totaal = df_uitgaven["Bedrag"].sum()
+                    per_persoon = totaal / len(g_data["vrienden"]) if g_data["vrienden"] else 0
+                    st.metric("Totale kosten festival", f"€ {totaal:.2f}")
+                    st.metric("Kosten per persoon", f"€ {per_persoon:.2f}")
+                    
+                    balans = {vriend: -per_persoon for vriend in g_data["vrienden"]}
+                    for u in g_data["uitgaven"]:
+                        if u["Wie"] in balans:
+                            balans[u["Wie"]] += u["Bedrag"]
+                    for persoon, geld in balans.items():
+                        if geld > 0.01:
+                            st.write(f"🟢 **{persoon}** krijgt nog **€ {geld:.2f}** terug.")
+                        elif geld < -0.01:
+                            st.write(f"🔴 **{persoon}** moet nog **€ {abs(geld):.2f}** betalen.")
+                        else:
+                            st.write(f"⚪ **{persoon}** staat precies quitte.")
+                    st.write("---")
+                    
+                    with st.form(key="form_delete_expense_isolated"):
+                        opties_verwijderen = [f"{i}: {u['Wie']} - €{u['Bedrag']} ({u['Omschrijving']})" for i, u in enumerate(g_data["uitgaven"])]
+                        te_verwijderen = st.selectbox("Welke uitgave wil je wissen?", opties_verwijderen)
+                        submit_delete = st.form_submit_button("🔴 Geselecteerde uitgave wissen")
+                        
+                        if submit_delete:
+                            index_to_delete = int(te_verwijderen.split(":"))
+                            st.session_state.groeps_data["uitgaven"].pop(index_to_delete)
+                            sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
+                            st.success("Uitgave verwijderd!")
+                            st.rerun()
+                else:
+                    st.info("Nog geen groepsuitgaven ingevoerd.")
+                    
+    # ==========================================
+    # PAGINA 3: TIMETABLE / LINE-UP
+    # ==========================================
+    elif gekozen_menu == "🎵 Timetable / Line-up":
+        st.header("🎵 Liquicity 2026 Groeps-Timetable")
+        liquicity_acts = [
+            {"Dag": "Vrijdag", "Tijd": "21:30 - 23:00", "Artiest": "Netsky", "Stage": "Galaxy"},
+            {"Dag": "Vrijdag", "Tijd": "20:15 - 21:30", "Artiest": "Wilkinson", "Stage": "Galaxy"},
+            {"Dag": "Zaterdag", "Tijd": "21:30 - 23:00", "Artiest": "Hybrid Minds", "Stage": "Galaxy"},
+            {"Dag": "Zaterdag", "Tijd": "20:00 - 21:30", "Artiest": "Fox Stevenson (LIVE)", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "22:00 - 23:30", "Artiest": "Andy C", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "20:30 - 22:00", "Artiest": "Maduk", "Stage": "Galaxy"}
+        ]
+        
+        if len(g_data["vrienden"]) == 0:
+            st.info("Voeg eerst namen toe in de zijbalk om de timetable te gebruiken!")
+        else:
+            col1, col2 = st.columns(2)
+            with col1:
+                st.subheader("🪐 Geef jouw 'Must-Sees' door")
+                kiezende_vriend = st.selectbox("Wie ben je?", g_data["vrienden"], key="p3_vriend_select")
+                
+                with st.form(key="form_timetable_isolated"):
+                    tijdelijke_vinkjes = {}
+                    for act in liquicity_acts:
+                        a_name = act["Artiest"]
+                        al_gevinkt = kiezende_vriend in g_data["timetable"].get(a_name, [])
+                        tijdelijke_vinkjes[a_name] = st.checkbox(f"⏱️ {act['Tijd']} | **{a_name}** ({act['Stage']})", value=al_gevinkt)
+                        
+                    submit_timetable = st.form_submit_button("Mijn Line-up Voorkeuren Opslaan", type="primary")
+                    
+                    if submit_timetable:
+                        for act in liquicity_acts:
+                            a_name = act["Artiest"]
+                            if a_name not in st.session_state.groeps_data["timetable"]:
+                                st.session_state.groeps_data["timetable"][a_name] = []
+                            
+                            vinkje = tijdelijke_vinkjes[a_name]
+                            if vinkje and kiezende_vriend not in st.session_state.groeps_data["timetable"][a_name]:
+                                st.session_state.groeps_data["timetable"][a_name].append(kiezende_vriend)
+                            elif not vinkje and kiezende_vriend in st.session_state.groeps_data["timetable"][a_name]:
+                                st.session_state.groeps_data["timetable"][a_name].remove(kiezende_vriend)
+                        
+                        sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
+                        st.success("Timetable bijgewerkt!")
+                        st.rerun()
+                    
+            with col2:
+                st.subheader("📊 Wie staat waar? (Groepsoverzicht)")
+                timetable_data = []
+                for act in liquicity_acts:
+                    a_name = act["Artiest"]
+                    wie_gaan = g_data["timetable"].get(a_name, [])
+                    timetable_data.append({
+                        "Dag": act["Dag"], "Tijd": act["Tijd"], "Artiest": a_name, "Stage": act["Stage"],
+                        "Aantal": len(wie_gaan), "Wie gaan er mee?": ", ".join(wie_gaan) if wie_gaan else "Nog niemand (😭)"
+                    })
+                st.dataframe(pd.DataFrame(timetable_data), use_container_width=True, hide_index=True)
 
     # ==========================================
     # PAGINA 4: GROEPS-PAKLIJST
@@ -290,7 +351,6 @@ elif gekozen_menu == "💶 Tickets & Spullen Kosten":
                 sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
                 st.success("Paklijst succesvol bijgewerkt!")
                 st.rerun()
-
     # ==========================================
     # PAGINA 5: AUTOREIS & PARKEREN
     # ==========================================
@@ -306,7 +366,7 @@ elif gekozen_menu == "💶 Tickets & Spullen Kosten":
             
             st.write("---")
             st.subheader("🎫 Parkeerkaart Herinnering")
-            st.warning("⚠️ Vergeet niet vooraf jullie **Parkeerticket** online te kopen via de officiële Liquicity website!")
+            st.warning("⚠️ Vergeet niet vooraf jullie **Parkeerticket** online te kopen via de offiziële Liquicity website!")
 
         with col2_car:
             st.subheader("📌 Waar staat de auto?")
@@ -324,6 +384,7 @@ elif gekozen_menu == "💶 Tickets & Spullen Kosten":
                     sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
                     st.success("Parkeerplek succesvol opgeslagen!")
                     st.rerun()
+
     # ==========================================
     # PAGINA 6: GOOGLE FOTO'S (UNIVERSEEL)
     # ==========================================
