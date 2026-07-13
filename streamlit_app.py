@@ -41,7 +41,7 @@ def sla_groep_data_op(g_id, data):
             supabase.table("crews").update({"groeps_data": data}).eq("groeps_id", g_id).execute()
         else:
             # Nieuwe groep invoegen
-            supabase.table("crews").insert({"groeps_id", g_id, "groeps_data": data}).execute()
+            supabase.table("crews").insert({"groeps_id": g_id, "groeps_data": data}).execute()
     except Exception as e:
         st.error(f"Fout bij het opslaan in de database: {e}")
 
