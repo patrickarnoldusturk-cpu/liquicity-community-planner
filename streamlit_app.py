@@ -240,64 +240,6 @@ elif gekozen_menu == "💶 Tickets & Spullen Kosten":
                         st.rerun()
             else:
                 st.info("Nog geen groepsuitgaven ingevoerd.")
-    # ==========================================
-    # PAGINA 3: TIMETABLE / LINE-UP
-    # ==========================================
-    elif gekozen_menu == "🎵 Timetable / Line-up":
-        st.header("🎵 Liquicity 2026 Groeps-Timetable")
-        liquicity_acts = [
-            {"Dag": "Vrijdag", "Tijd": "21:30 - 23:00", "Artiest": "Netsky", "Stage": "Galaxy"},
-            {"Dag": "Vrijdag", "Tijd": "20:15 - 21:30", "Artiest": "Wilkinson", "Stage": "Galaxy"},
-            {"Dag": "Zaterdag", "Tijd": "21:30 - 23:00", "Artiest": "Hybrid Minds", "Stage": "Galaxy"},
-            {"Dag": "Zaterdag", "Tijd": "20:00 - 21:30", "Artiest": "Fox Stevenson (LIVE)", "Stage": "Galaxy"},
-            {"Dag": "Zondag", "Tijd": "22:00 - 23:30", "Artiest": "Andy C", "Stage": "Galaxy"},
-            {"Dag": "Zondag", "Tijd": "20:30 - 22:00", "Artiest": "Maduk", "Stage": "Galaxy"}
-        ]
-        
-        if len(g_data["vrienden"]) == 0:
-            st.info("Voeg eerst namen toe in de zijbalk om de timetable te gebruiken!")
-        else:
-            col1, col2 = st.columns(2)
-            with col1:
-                st.subheader("🪐 Geef jouw 'Must-Sees' door")
-                kiezende_vriend = st.selectbox("Wie ben je?", g_data["vrienden"], key="p3_vriend_select")
-                
-                with st.form(key="form_timetable_isolated"):
-                    tijdelijke_vinkjes = {}
-                    for act in liquicity_acts:
-                        a_name = act["Artiest"]
-                        al_gevinkt = kiezende_vriend in g_data["timetable"].get(a_name, [])
-                        tijdelijke_vinkjes[a_name] = st.checkbox(f"⏱️ {act['Tijd']} | **{a_name}** ({act['Stage']})", value=al_gevinkt)
-                        
-                    submit_timetable = st.form_submit_button("Mijn Line-up Voorkeuren Opslaan", type="primary")
-                    
-                    if submit_timetable:
-                        for act in liquicity_acts:
-                            a_name = act["Artiest"]
-                            if a_name not in st.session_state.groeps_data["timetable"]:
-                                st.session_state.groeps_data["timetable"][a_name] = []
-                            
-                            vinkje = tijdelijke_vinkjes[a_name]
-                            if vinkje and kiezende_vriend not in st.session_state.groeps_data["timetable"][a_name]:
-                                st.session_state.groeps_data["timetable"][a_name].append(kiezende_vriend)
-                            elif not vinkje and kiezende_vriend in st.session_state.groeps_data["timetable"][a_name]:
-                                st.session_state.groeps_data["timetable"][a_name].remove(kiezende_vriend)
-                        
-                        sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
-                        st.success("Timetable bijgewerkt!")
-                        st.rerun()
-                    
-            with col2:
-                st.subheader("📊 Wie staat waar? (Groepsoverzicht)")
-                timetable_data = []
-                for act in liquicity_acts:
-                    a_name = act["Artiest"]
-                    wie_gaan = g_data["timetable"].get(a_name, [])
-                    timetable_data.append({
-                        "Dag": act["Dag"], "Tijd": act["Tijd"], "Artiest": a_name, "Stage": act["Stage"],
-                        "Aantal": len(wie_gaan), "Wie gaan er mee?": ", ".join(wie_gaan) if wie_gaan else "Nog niemand (😭)"
-                    })
-                st.dataframe(pd.DataFrame(timetable_data), use_container_width=True, hide_index=True)
 
     # ==========================================
     # PAGINA 4: GROEPS-PAKLIJST
@@ -348,6 +290,7 @@ elif gekozen_menu == "💶 Tickets & Spullen Kosten":
                 sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
                 st.success("Paklijst succesvol bijgewerkt!")
                 st.rerun()
+
     # ==========================================
     # PAGINA 5: AUTOREIS & PARKEREN
     # ==========================================
@@ -381,7 +324,6 @@ elif gekozen_menu == "💶 Tickets & Spullen Kosten":
                     sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
                     st.success("Parkeerplek succesvol opgeslagen!")
                     st.rerun()
-
     # ==========================================
     # PAGINA 6: GOOGLE FOTO'S (UNIVERSEEL)
     # ==========================================
