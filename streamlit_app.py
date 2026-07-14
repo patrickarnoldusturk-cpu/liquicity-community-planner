@@ -128,9 +128,8 @@ else:
     st.sidebar.write("---")
     st.sidebar.header("📂 Menu Planner")
     
-    # FIX: Gestroomlijnde CSS zonder inspringfouten voor een groter menu
-    css_sidebar = "<style>div[data-testid='stSidebarRadio'] label p { font-size: 18px !important; font-weight: 500 !important; } div[data-testid='stSidebarRadio'] [data-testid='stWidgetMarkdownClaims'] { gap: 12px !important; }</style>"
-    st.sidebar.write(css_sidebar, unsafe_html=True)
+    # FIX: Officiële Streamlit HTML-injector (100% crashvrij op Python 3.14)
+    st.html("<style>div[data-testid='stSidebarRadio'] label p { font-size: 18px !important; font-weight: 500 !important; }</style>")
 
     gekozen_menu = st.sidebar.radio(
         "Ga naar:",
