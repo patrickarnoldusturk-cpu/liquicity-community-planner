@@ -128,12 +128,11 @@ else:
     st.sidebar.write("---")
     st.sidebar.header("📂 Menu Planner")
     gekozen_menu = st.sidebar.radio(
-    gekozen_menu = st.sidebar.radio(
         "Ga naar:",
         ["👨‍🚀 Liquicity weekend", "💶 Tickets & Spullen Kosten", "🎵 Timetable / Line-up", 
          "🧳 Groeps-Paklijst", "🚗 Autoreis & Parkeren", "🗺️ Festival Plattegrond", "📸 Google Foto's", "🎵 Groeps-Playlist", "🚀 Liquicity Info & Media"],
         key="sb_navigation_radio"
-)
+    )
     
     st.markdown(f"### 📍 Je bent nu hier: **{gekozen_menu}**")
     st.write("---")
