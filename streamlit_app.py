@@ -128,8 +128,23 @@ else:
     st.sidebar.write("---")
     st.sidebar.header("📂 Menu Planner")
     
-    # FIX: Officiële Streamlit HTML-injector (100% crashvrij op Python 3.14)
-    st.html("<style>div[data-testid='stSidebarRadio'] label p { font-size: 18px !important; font-weight: 500 !important; }</style>")
+    # FIX: Kogelvrije HTML/CSS die ALLE tekst binnen het sidebar-menu dwingt naar 19px
+    st.html("""
+        <style>
+        [data-testid="stSidebarRadio"] div role {
+            font-size: 19px !important;
+        }
+        [data-testid="stSidebarRadio"] label {
+            font-size: 19px !important;
+            font-weight: 500 !important;
+            padding: 5px 0px !important;
+        }
+        /* Zorgt dat ook de emoji's en tekst groter schalen op telefoons */
+        [data-testid="stSidebarRadio"] label div p {
+            font-size: 19px !important;
+        }
+        </style>
+    """)
 
     gekozen_menu = st.sidebar.radio(
         "Ga naar:",
