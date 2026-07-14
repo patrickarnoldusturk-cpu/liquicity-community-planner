@@ -128,20 +128,21 @@ else:
     st.sidebar.write("---")
     st.sidebar.header("📂 Menu Planner")
     
-    # FIX: Kogelvrije HTML/CSS die ALLE tekst binnen het sidebar-menu dwingt naar 19px
+    # FIX: Dit dwingt zowel de knoppen als de tekst-labels en emoji's naar 20px
     st.html("""
         <style>
-        [data-testid="stSidebarRadio"] div role {
-            font-size: 19px !important;
-        }
-        [data-testid="stSidebarRadio"] label {
-            font-size: 19px !important;
+        /* Target de labels, de paragrafen én de losse tekstelementen binnen de radio-container */
+        [data-testid="stSidebarRadio"] label, 
+        [data-testid="stSidebarRadio"] label p, 
+        [data-testid="stSidebarRadio"] label span,
+        [data-testid="stSidebarRadio"] div[data-testid="stWidgetMarkdownClaims"] p {
+            font-size: 20px !important;
             font-weight: 500 !important;
-            padding: 5px 0px !important;
+            line-height: 1.4 !important;
         }
-        /* Zorgt dat ook de emoji's en tekst groter schalen op telefoons */
-        [data-testid="stSidebarRadio"] label div p {
-            font-size: 19px !important;
+        /* Geeft extra tussenruimte tussen de grote menu-opties op mobiel */
+        [data-testid="stSidebarRadio"] div[role="radiogroup"] {
+            gap: 14px !important;
         }
         </style>
     """)
@@ -155,6 +156,7 @@ else:
     
     st.markdown(f"### 📍 Je bent nu hier: **{gekozen_menu}**")
     st.write("---")
+
 
 
 # ==========================================
