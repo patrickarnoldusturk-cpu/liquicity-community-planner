@@ -127,6 +127,23 @@ else:
     # --- DE NAVIGATIE ---
     st.sidebar.write("---")
     st.sidebar.header("📂 Menu Planner")
+    
+    # FIX: Maak de menuknoppen in de zijbalk groter en makkelijker klikbaar op mobiel
+    st.sidebar.markdown(
+        """
+        <style>
+        div[data-testid="stSidebarRadio"] label p {
+            font-size: 18px !important;
+            font-weight: 500 !important;
+        }
+        div[data-testid="stSidebarRadio"] gap {
+            gap: 12px !important;
+        }
+        </style>
+        """,
+        unsafe_html=True
+    )
+
     gekozen_menu = st.sidebar.radio(
         "Ga naar:",
         ["👨‍🚀 Liquicity weekend", "💶 Tickets & Spullen Kosten", "🎫 Ticket Status", "🎵 Timetable / Line-up", 
