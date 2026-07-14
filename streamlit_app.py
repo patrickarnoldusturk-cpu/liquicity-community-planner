@@ -528,7 +528,7 @@ else:
             st.subheader("🛠️ Stap 1: Maak een album aan (Indien nodig)")
             st.write("Heeft jullie crew nog geen gezamenlijk album? Gebruik deze directe snelkoppeling om er binnen 5 seconden gratis een aan te maken:")
             # Directe link naar de album-aanmaakpagina van Google Photos
-            st.link_button("✨ Snelkoppeling: Maak Nieuw Google Album", "https://google.com", type="secondary", use_container_width=True)
+            st.link_button("✨ Snelkoppeling: Maak Nieuw Google Album", "https://photos.google.com/albums", type="secondary", use_container_width=True)
             st.info("💡 **Tip:** Zorg dat je in Google Photos bij de album-instellingen 'Delen' inschakelt en de link kopieert!")
 
         with col2_ph:
