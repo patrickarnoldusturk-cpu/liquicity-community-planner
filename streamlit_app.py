@@ -388,7 +388,10 @@ else:
             st.write("---")
             st.subheader("🎫 Parkeerkaart Herinnering")
             st.warning("⚠️ Vergeet niet vooraf jullie **Parkeerticket** online te kopen via de offiziële Liquicity website!")
+            st.warning("⚠️ Let op: Parkeerkaarten moeten vooraf online worden gekocht en zijn het goedkoopst in de voorverkoop!")
+            st.link_button("🎟️ Koop Je Parkeerticket Online", "https://liquicity.com", type="secondary", use_container_width=True)
 
+        
         with col2_car:
             st.subheader("📌 Waar staat de auto?")
             st.write("Vul hier bij aankomst in waar de auto's geparkeerd staan. Wel zo fijn voor de maandagochtend!")
