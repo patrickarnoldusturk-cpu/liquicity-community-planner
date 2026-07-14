@@ -431,17 +431,20 @@ else:
             st.info("Er is nog geen fotoalbum gekoppeld door jullie crew. Plak de deellink hierboven!")
 
     # ==========================================
-    # PAGINA 7: GROEPS-PLAYLIST (UNIVERSEEL)
+    # PAGINA 7: GROEPS-PLAYLIST (OFFICIËLE LIQUICITY VERSION)
     # ==========================================
     elif gekozen_menu == "🎵 Groeps-Playlist":
         st.header("🎵 Onze Gezamenlijke Liquicity Playlist")
-        st.write("Luister direct naar de playlist! Elke crew kan hier een eigen Spotify playlist koppelen.")
+        st.write("Luister direct naar de playlist! Elke crew kan hier een eigen Spotify playlist koppelen, of de officiële Liquicity lijst gebruiken.")
         
-        if "playlist_url" not in st.session_state.groeps_data:
-            st.session_state.groeps_data["playlist_url"] = "https://spotify.com"
+        # FIX: De officiële Liquicity afspeellijst ingesteld als de nieuwe universele standaard
+        officiele_liquicity_playlist = "https://open.spotify.com/playlist/19y0UVk0bcrJWEqMwBHosj"
+        
+        if "playlist_url" not in st.session_state.groeps_data or st.session_state.groeps_data["playlist_url"] == "https://spotify.com" or st.session_state.groeps_data["playlist_url"] == "https://spotify.com":
+            st.session_state.groeps_data["playlist_url"] = officiele_liquicity_playlist
             
         with st.form(key="form_playlist_url"):
-            ingevulde_sp = st.text_input("Plak hier de link naar jullie Spotify playlist:", value=st.session_state.groeps_data["playlist_url"])
+            ingevulde_sp = st.text_input("Plak hier de link naar jullie Spotify playlist (of laat de officiële lijst staan):", value=st.session_state.groeps_data["playlist_url"])
             submit_playlist = st.form_submit_button("💾 Playlist Link Opslaan")
             
             if submit_playlist:
@@ -451,12 +454,15 @@ else:
                 st.rerun()
                 
         sp_url = st.session_state.groeps_data["playlist_url"]
-        playlist_id = "2xjqPMtbmhpsS1QAzwnkYs"
+        playlist_id = "19y0UVk0bcrJWEqMwBHosj" # Officiële Liquicity Fallback ID
+        
+        # Filter de 22-cijferige code uit de link (werkt voor elke ingevoerde lijst)
         match = re.search(r'playlist/([a-zA-Z0-9]{22})', sp_url)
         if match:
             playlist_id = match.group(1)
             
-            embed_url = "https://spotify.com"
+        # De embed link geüpdatet met de officiële Liquicity ID gateway
+        embed_url = f"https://spotify.com{playlist_id}?utm_source=generator&theme=0"
         
         col1_sp, col2_sp = st.columns(2)
         with col1_sp:
@@ -465,6 +471,7 @@ else:
         with col2_sp:
             st.subheader("🎶 Openen in app")
             st.link_button("🎶 Open Playlist in Spotify-App", sp_url, type="primary", use_container_width=True)
+
 
     # ==========================================
     # PAGINA 8: LIQUICITY INFO & MEDIA
