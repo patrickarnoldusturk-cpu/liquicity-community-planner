@@ -235,12 +235,14 @@ else:
                         te_verwijderen = st.selectbox("Welke uitgave wil je wissen?", opties_verwijderen)
                         submit_delete = st.form_submit_button("🔴 Geselecteerde uitgave wissen")
                         
-                        if submit_delete:
-                            index_to_delete = int(te_verwijderen.split(":"))
-                            st.session_state.groeps_data["uitgaven"].pop(index_to_delete)
-                            sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
-                            st.success("Uitgave verwijderd!")
-                            st.rerun()
+                    if submit_delete:
+                        # Pak het allereerste deel van de split-lijst [0] en zet dit om naar een getal
+                        index_to_delete = int(te_verwijderen.split(":")[0])
+                        st.session_state.groeps_data["uitgaven"].pop(index_to_delete)
+                        sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
+                        st.success("Uitgave verwijderd!")
+                        st.rerun()
+
                 else:
                     st.info("Nog geen groepsuitgaven ingevoerd.")
                     
