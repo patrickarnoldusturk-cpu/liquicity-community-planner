@@ -481,3 +481,5 @@ else:
             st.link_button("🌐 Officiële Website", "https://liquicity.com", type="secondary", use_container_width=True)
             st.link_button("📸 Instagram", "https://www.instagram.com/liquicity/", type="secondary", use_container_width=True)
             st.link_button("🎵 TikTok", "https://www.tiktok.com/@liquicity", type="secondary", use_container_width=True)
+            st.link_button("💬 Facebook Community", "https://facebook.com", type="secondary", use_container_width=True)
+
