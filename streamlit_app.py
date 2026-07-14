@@ -475,9 +475,9 @@ else:
         col1_media, col2_media = st.columns(2)
         with col1_media:
             st.subheader("🎬 Aftermovie 2025")
-            st.video("https://youtube.com")
+            st.video("https://www.youtube.com/watch?v=o9ast9cAnLc&t=180s")
         with col2_media:
             st.subheader("📱 Officiële Social Media")
             st.link_button("🌐 Officiële Website", "https://liquicity.com", type="secondary", use_container_width=True)
-            st.link_button("📸 Instagram", "https://instagram.com", type="secondary", use_container_width=True)
-            st.link_button("🎵 TikTok", "https://tiktok.com", type="secondary", use_container_width=True)
+            st.link_button("📸 Instagram", "https://www.instagram.com/liquicity/", type="secondary", use_container_width=True)
+            st.link_button("🎵 TikTok", "https://www.tiktok.com/@liquicity", type="secondary", use_container_width=True)
