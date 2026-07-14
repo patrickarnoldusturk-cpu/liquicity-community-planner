@@ -129,7 +129,7 @@ else:
     st.sidebar.header("📂 Menu Planner")
     gekozen_menu = st.sidebar.radio(
         "Ga naar:",
-        ["👨‍🚀 Liquicity weekend", "💶 Tickets & Spullen Kosten", "🎵 Timetable / Line-up", 
+        ["👨‍🚀 Liquicity weekend", "💶 Tickets & Spullen Kosten", "🎫 Ticket Status", "🎵 Timetable / Line-up", 
          "🧳 Groeps-Paklijst", "🚗 Autoreis & Parkeren", "🗺️ Festival Plattegrond", "📸 Google Foto's", "🎵 Groeps-Playlist", "🚀 Liquicity Info & Media"],
         key="sb_navigation_radio"
     )
@@ -246,6 +246,61 @@ else:
                 else:
                     st.info("Nog geen groepsuitgaven ingevoerd.")
                     
+        # ==========================================
+    # PAGINA 2.5: TICKET STATUS (VEILIG OVERZICHT)
+    # ==========================================
+    elif gekozen_menu == "🎫 Ticket Status":
+        st.header("🎫 Groeps-Ticket Checklist")
+        st.write("Zorg dat iedereen zijn tickets veilig op orde heeft vóór vertrek. Geen rondslingerende barcodes, wel 100% overzicht!")
+
+        if len(g_data["vrienden"]) == 0:
+            st.info("Voeg eerst namen toe in de zijbalk om de ticket-checklist te gebruiken!")
+        else:
+            if "tickets" not in st.session_state.groeps_data:
+                st.session_state.groeps_data["tickets"] = {}
+
+            col1_t, col2_t = st.columns(2)
+            with col1_t:
+                st.subheader("📝 Update jouw status")
+                kiezende_vriend = st.selectbox("Wie ben je?", g_data["vrienden"], key="p25_ticket_user_select")
+                
+                # Haal eventuele oude data veilig op
+                oude_ticket_data = g_data["tickets"].get(kiezende_vriend, {"Weekend": False, "Camping": False, "Notitie": ""})
+                
+                with st.form(key="form_ticket_status"):
+                    weekend_ok = st.checkbox("🎟️ Ik heb mijn Entreeticket (Weekend/Dag) veilig opgeslagen", value=oude_ticket_data.get("Weekend", False))
+                    camping_ok = st.checkbox("⛺ Ik heb mijn Camping-ticket binnen (indien nodig)", value=oude_ticket_data.get("Camping", False))
+                    ticket_notitie = st.text_input("Waar staat je ticket? (bijv. 'Paylogic mail', 'Mijn Ticketswap'):", value=oude_ticket_data.get("Notitie", ""))
+                    
+                    submit_ticket = st.form_submit_button("💾 Mijn Status Opslaan", type="primary")
+                    
+                    if submit_ticket:
+                        st.session_state.groeps_data["tickets"][kiezende_vriend] = {
+                            "Weekend": weekend_ok,
+                            "Camping": camping_ok,
+                            "Notitie": ticket_notitie.strip()
+                        }
+                        sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
+                        st.success("Je ticketstatus is veilig opgeslagen!")
+                        st.rerun()
+
+            with col2_t:
+                st.subheader("📊 Live Crew Overzicht")
+                st.write("Controleer wie er al helemaal klaar is voor de poort:")
+                
+                ticket_overzicht = []
+                for vriend in g_data["vrienden"]:
+                    t_info = g_data["tickets"].get(vriend, {"Weekend": False, "Camping": False, "Notitie": "Nog niet ingevuld"})
+                    ticket_overzicht.append({
+                        "Crewlid": vriend,
+                        "Entree OK": "✅ Ja" if t_info.get("Weekend") else "❌ Nee",
+                        "Camping OK": "✅ Ja" if t_info.get("Camping") else "❌ Nee",
+                        "Waar te vinden?": t_info.get("Notitie") if t_info.get("Notitie") else "—"
+                    })
+                
+                st.dataframe(pd.DataFrame(ticket_overzicht), use_container_width=True, hide_index=True)
+
+    
     # ==========================================
     # PAGINA 3: TIMETABLE / LINE-UP
     # ==========================================
