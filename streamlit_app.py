@@ -438,6 +438,71 @@ else:
                         sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
                         st.success("Timetable succesvol bijgewerkt!")
                         st.rerun()
+
+                # =======================================================
+                # 📅 OFFLINE AGENDA EXPORTER (.ICS) - GEPLAATST IN COL1
+                # =======================================================
+                st.write("---")
+                st.subheader("📱 Sla op in je Telefoon Agenda")
+                st.info("Genereer een agenda-bestand. Je telefoon geeft op het festivalterrein volledig offline een melding (15 min van tevoren) zodat je favoriete artiesten niet mist!")
+
+                # Verzamel alle acts die deze vriend daadwerkelijk heeft aangevinkt
+                mijn_acts = []
+                for act in liquicity_acts:
+                    a_name = act["Artiest"]
+                    if kiezende_vriend in g_data["timetable"].get(a_name, []):
+                        mijn_acts.append(act)
+
+                if len(mijn_acts) == 0:
+                    st.warning("⚠️ Vink hierboven eerst je favoriete artiesten aan en sla ze op om je persoonlijke agenda te downloaden.")
+                else:
+                    # Juiste festivaldatums voor Liquicity 2026 (24 t/m 26 juli)
+                    datum_mapping = {
+                        "Vrijdag": "20260724",
+                        "Zaterdag": "20260725",
+                        "Zondag": "20260726"
+                    }
+
+                    # Genereer iCalendar string handmatig op
+                    ics_content = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Liquicity Crew Planner//NL\nCALSCALE:GREGORIAN\n"
+                    
+                    for act in mijn_acts:
+                        dag_datum = datum_mapping.get(act["Dag"], "20260724")
+                        artiest = act["Artiest"]
+                        stage = act["Stage"]
+                        tijdstip = act["Tijd"]
+
+                        # Fallback tijden (omdat we momenteel dagdelen/uren mixen)
+                        start_tijd = "140000"
+                        eind_tijd = "153000"
+
+                        # Probeert de tijdstip string te ontleden als er harde tijden instaan (bijv. "19:15 - 20:30")
+                        tijd_match = re.search(r'(\d{2}):(\d{2})\s*-\s*(\d{2}):(\d{2})', tijdstip)
+                        if tijd_match:
+                            start_tijd = f"{tijd_match.group(1)}{tijd_match.group(2)}00"
+                            eind_tijd = f"{tijd_match.group(3)}{tijd_match.group(4)}00"
+
+                        ics_content += "BEGIN:VEVENT\n"
+                        ics_content += f"SUMMARY:🚀 Liquicity: {artiest}\n"
+                        ics_content += f"DTSTART;TZID=Europe/Amsterdam:{dag_datum}T{start_tijd}\n"
+                        ics_content += f"DTEND;TZID=Europe/Amsterdam:{dag_datum}T{eind_tijd}\n"
+                        ics_content += f"LOCATION:🎪 {stage} Stage - Geestmerambacht\n"
+                        ics_content += f"DESCRIPTION:Ingeplande tijdslot: {tijdstip}. Gegenereerd via je Liquicity Community Planner.\\n\n"
+                        # Voeg een ingebouwd alarm toe dat 15 minuten voor starttijd afgaat
+                        ics_content += "BEGIN:VALARM\nTRIGGER:-PT15M\nACTION:DISPLAY\nDESCRIPTION:Festival Reminder\nEND:VALARM\n"
+                        ics_content += "END:VEVENT\n"
+                    
+                    ics_content += "END:VCALENDAR"
+
+                    # Prachtige Streamlit downloadknop
+                    st.download_button(
+                        label=f"📥 Download Festival Agenda voor {kiezende_vriend} (.ics)",
+                        data=ics_content,
+                        file_name=f"liquicity_2026_{kiezende_vriend.lower().replace(' ', '_')}.ics",
+                        mime="text/calendar",
+                        use_container_width=True,
+                        type="secondary"
+                    )
                     
             with col2:
                 st.subheader("📊 Wie staat waar? (Groepsoverzicht)")
@@ -451,11 +516,12 @@ else:
                     })
                 
                 # DataFrame bouwen en sorteren op de meest populaire acts van je crew
-                df_tt = pd.DataFrame(timetable_data)
+                df_tt = pd. DataFrame(timetable_data)
                 df_tt_gefilterd = df_tt[df_tt["Dag"].isin(dag_filter) & df_tt["Stage"].isin(stage_filter)]
                 df_tt_gesorteerd = df_tt_gefilterd.sort_values(by="Aantal", ascending=False)
                 
                 st.dataframe(df_tt_gesorteerd, use_container_width=True, hide_index=True)
+
 
     # ==========================================
     # PAGINA 4: GROEPS-PAKLIJST
