@@ -381,7 +381,7 @@ else:
         with col1_car:
             st.subheader("📍 Navigatie naar Parkeerterrein")
             st.write("Klik op de knop hieronder om direct Google Maps te openen met de route naar het festivalterrein:")
-            st.link_button("🗺️ Start Google Maps Navigatie", "https://google.com", type="primary", use_container_width=True)
+            st.link_button("🗺️ Start Google Maps Navigatie", "https://www.google.com/maps/place/Recreatiegebied+Geestmerambacht/@52.6894141,4.7616385,16z/data=!3m1!4b1!4m6!3m5!1s0x47cf572c1575159d:0x93dad4b4d4d1c852!8m2!3d52.6894109!4d4.7642134!16s%2Fg%2F1tfd66rr?entry=ttu&g_ep=EgoyMDI2MDcwOC4wIKXMDSoASAFQAw%3D%3D", type="primary", use_container_width=True)
             
             st.write("---")
             st.subheader("🎫 Parkeerkaart Herinnering")
