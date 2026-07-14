@@ -437,10 +437,14 @@ else:
         st.header("🎵 Onze Gezamenlijke Liquicity Playlist")
         st.write("Luister direct naar de playlist! Elke crew kan hier een eigen Spotify playlist koppelen, of de officiële Liquicity lijst gebruiken.")
         
-        # FIX: De officiële Liquicity afspeellijst ingesteld als de nieuwe universele standaard
-        officiele_liquicity_playlist = "https://open.spotify.com/playlist/19y0UVk0bcrJWEqMwBHosj"
+        # De officiële Liquicity afspeellijst ingesteld als de nieuwe universele standaard
+        officiele_liquicity_playlist = "https://open.spotify.com/playlist/19y0UVk0bcrJWEqMwBHosj?si=2-W3RCUbRiGuQiAomNLT7w"
         
-        if "playlist_url" not in st.session_state.groeps_data or st.session_state.groeps_data["playlist_url"] == "https://spotify.com" or st.session_state.groeps_data["playlist_url"] == "https://spotify.com":
+        # FIX 1: Als de link leeg is, ontbreekt, of de foute basis-URL bevat, overschrijven met de officiële link
+        if "playlist_url" not in st.session_state.groeps_data or \
+           st.session_state.groeps_data["playlist_url"] == "https://spotify.com" or \
+           st.session_state.groeps_data["playlist_url"] == "" or \
+           "playlist/" not in st.session_state.groeps_data["playlist_url"]:
             st.session_state.groeps_data["playlist_url"] = officiele_liquicity_playlist
             
         with st.form(key="form_playlist_url"):
@@ -454,15 +458,15 @@ else:
                 st.rerun()
                 
         sp_url = st.session_state.groeps_data["playlist_url"]
-        playlist_id = "19y0UVk0bcrJWEqMwBHosj" # Officiële Liquicity Fallback ID
+        playlist_id = "19y0UVk0bcrJWEqMwBHosj" # Gegarandeerde back-up ID
         
-        # Filter de 22-cijferige code uit de link (werkt voor elke ingevoerde lijst)
+        # Filter de 22-cijferige code uit de link
         match = re.search(r'playlist/([a-zA-Z0-9]{22})', sp_url)
         if match:
             playlist_id = match.group(1)
             
-        # De embed link geüpdatet met de officiële Liquicity ID gateway
-        embed_url = f"https://spotify.com{playlist_id}?utm_source=generator&theme=0"
+        # FIX 2: Altijd bouwen met de volledige ://spotify.com link om IP-fouten uit te sluiten
+        embed_url = f"https://://spotify.complaylist/{playlist_id}?utm_source=generator&theme=0"
         
         col1_sp, col2_sp = st.columns(2)
         with col1_sp:
