@@ -427,6 +427,7 @@ else:
                 sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
                 st.success("Paklijst succesvol bijgewerkt!")
                 st.rerun()
+    
     # ==========================================
     # PAGINA 5: AUTOREIS & PARKEREN
     # ==========================================
@@ -486,7 +487,7 @@ else:
 
         st.write("---")
         # Als de crew zelf een kaart heeft gekoppeld, toon die link, anders toon de officiële Instagram map-update
-        kaart_link = st.session_state.groeps_data["map_url"] if st.session_state.groeps_data["map_url"] else "https://www.instagram.com/p/DaBBWcbDCQ3/?img_index=1"
+        kaart_link = st.session_state.groeps_data["map_url"] if st.session_state.groeps_data["map_url"] else "https://festival.liquicity.com/practical/map/"
         
         st.subheader("🎪 Live Kaart Bekijken")
         st.write("Klik op de knop hieronder om de plattegrond in groot formaat te openen en in te zoomen op de camping en barren:")
