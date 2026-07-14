@@ -325,29 +325,79 @@ else:
     elif gekozen_menu == "🎵 Timetable / Line-up":
         st.header("🎵 Liquicity Groeps-Timetable (All Stages)")
         
-        # Uitgebreide line-up met de Galaxy, Lunar én Solar stages!
+        # Volledige, officiële 2026 line-up verdeeld per dag en stage
         liquicity_acts = [
-            # --- VRIJDAG ---
-            {"Dag": "Vrijdag", "Tijd": "21:30 - 23:00", "Artiest": "Netsky", "Stage": "Galaxy"},
-            {"Dag": "Vrijdag", "Tijd": "20:15 - 21:30", "Artiest": "Wilkinson", "Stage": "Galaxy"},
-            {"Dag": "Vrijdag", "Tijd": "19:00 - 20:15", "Artiest": "Technimatic", "Stage": "Lunar"},
-            {"Dag": "Vrijdag", "Tijd": "18:00 - 19:15", "Artiest": "Lenzman", "Stage": "Lunar"},
-            {"Dag": "Vrijdag", "Tijd": "17:00 - 18:00", "Artiest": "NCT", "Stage": "Solar"},
-            
-            # --- ZATERDAG ---
-            {"Dag": "Zaterdag", "Tijd": "21:30 - 23:00", "Artiest": "Hybrid Minds", "Stage": "Galaxy"},
-            {"Dag": "Zaterdag", "Tijd": "20:00 - 21:30", "Artiest": "Fox Stevenson (LIVE)", "Stage": "Galaxy"},
-            {"Dag": "Zaterdag", "Tijd": "18:30 - 20:00", "Artiest": "Koven", "Stage": "Lunar"},
-            {"Dag": "Zaterdag", "Tijd": "17:15 - 18:30", "Artiest": "Fred V", "Stage": "Lunar"},
-            {"Dag": "Zaterdag", "Tijd": "16:00 - 17:15", "Artiest": "T&Sugah", "Stage": "Solar"},
-            
-            # --- ZONDAG ---
-            {"Dag": "Zondag", "Tijd": "22:00 - 23:30", "Artiest": "Andy C", "Stage": "Galaxy"},
-            {"Dag": "Zondag", "Tijd": "20:30 - 22:00", "Artiest": "Maduk", "Stage": "Galaxy"},
-            {"Dag": "Zondag", "Tijd": "19:15 - 20:30", "Artiest": "Etherwood", "Stage": "Lunar"},
-            {"Dag": "Zondag", "Tijd": "18:00 - 19:15", "Artiest": "Bcee", "Stage": "Lunar"},
-            {"Dag": "Zondag", "Tijd": "16:45 - 18:00", "Artiest": "Edlan", "Stage": "Solar"}
+            # --- VRIJDAG 24 JULI ---
+            {"Dag": "Vrijdag", "Tijd": "Avond (Main)", "Artiest": "Hybrid Minds", "Stage": "Galaxy"},
+            {"Dag": "Vrijdag", "Tijd": "Avond", "Artiest": "Shy FX", "Stage": "Galaxy"},
+            {"Dag": "Vrijdag", "Tijd": "Avond", "Artiest": "Kanine", "Stage": "Galaxy"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "4AM KRU", "Stage": "Galaxy"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "IMANU", "Stage": "Galaxy"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "Lexurus", "Stage": "Galaxy"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "Loboski", "Stage": "Galaxy"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "Pirapus", "Stage": "Galaxy"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "Sless", "Stage": "Galaxy"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "Yue", "Stage": "Galaxy"},
+            {"Dag": "Vrijdag", "Tijd": "Liquid Set", "Artiest": "Monrroe", "Stage": "Lunar"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "Pola & Bryson", "Stage": "Lunar"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "S.P.Y", "Stage": "Lunar"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "Bcee", "Stage": "Lunar"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "Tantrum Desire", "Stage": "Lunar"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "Hiraeth", "Stage": "Lunar"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "Eskei83", "Stage": "Solar"},
+            {"Dag": "Vrijdag", "Tijd": "Middag", "Artiest": "Natty Lou", "Stage": "Solar"},
+
+            # --- ZATERDAG 25 JULI ---
+            {"Dag": "Zaterdag", "Tijd": "Main (LIVE)", "Artiest": "Fox Stevenson LIVE", "Stage": "Galaxy"},
+            {"Dag": "Zaterdag", "Tijd": "Avond", "Artiest": "Koven", "Stage": "Galaxy"},
+            {"Dag": "Zaterdag", "Tijd": "Avond", "Artiest": "Andromedik", "Stage": "Galaxy"},
+            {"Dag": "Zaterdag", "Tijd": "Avond", "Artiest": "Delta Heavy", "Stage": "Galaxy"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "Calibre", "Stage": "Galaxy"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "Sigma", "Stage": "Galaxy"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "ÆON:MODE", "Stage": "Galaxy"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "Dustkey", "Stage": "Galaxy"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "Oneiroi", "Stage": "Galaxy"},
+            {"Dag": "Zaterdag", "Tijd": "Avond", "Artiest": "Cartoon", "Stage": "Lunar"},
+            {"Dag": "Zaterdag", "Tijd": "Avond", "Artiest": "Etherwood", "Stage": "Lunar"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "Feint", "Stage": "Lunar"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "GLXY", "Stage": "Lunar"},
+            {"Dag": "Zaterdag", "Tijd": "Lenzman Tribute", "Artiest": "FD & Submorphics", "Stage": "Lunar"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "Matrix & Futurebound", "Stage": "Lunar"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "Telomic", "Stage": "Lunar"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "Dualistic", "Stage": "Solar"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "L.A.O.S", "Stage": "Solar"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "Rameses B", "Stage": "Solar"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "Matt View & Hannelotta", "Stage": "Solar"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "Mies FM", "Stage": "Solar"},
+            {"Dag": "Zaterdag", "Tijd": "Middag", "Artiest": "Operator21", "Stage": "Solar"},
+
+            # --- ZONDAG 26 JULI ---
+            {"Dag": "Zondag", "Tijd": "Legends Set", "Artiest": "Andy C", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "Avond", "Artiest": "Netsky", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "Avond", "Artiest": "Wilkinson", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "Avond", "Artiest": "Culture Shock", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Maduk", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Goddard", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Nymfo", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Auris", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Catching Cairo", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Phoibe", "Stage": "Galaxy"},
+            {"Dag": "Zondag", "Tijd": "Avond", "Artiest": "A.M.C", "Stage": "Lunar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Aktive", "Stage": "Lunar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Disrupta", "Stage": "Lunar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Technimatic", "Stage": "Lunar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Ekko & Sidetrack", "Stage": "Lunar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Pythius", "Stage": "Lunar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Skantia", "Stage": "Lunar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Alibi", "Stage": "Solar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Anaïs", "Stage": "Solar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Genetics", "Stage": "Solar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Low:r", "Stage": "Solar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Mandidextrous", "Stage": "Solar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "ALB", "Stage": "Solar"},
+            {"Dag": "Zondag", "Tijd": "Middag", "Artiest": "Aperio", "Stage": "Solar"}
         ]
+
         
         if len(g_data["vrienden"]) == 0:
             st.info("Voeg eerst namen toe in de zijbalk om de timetable te gebruiken!")
@@ -357,17 +407,24 @@ else:
                 st.subheader("🪐 Geef jouw 'Must-Sees' door")
                 kiezende_vriend = st.selectbox("Wie ben je?", g_data["vrienden"], key="p3_vriend_select")
                 
+                # --- INTERACTIEVE FILTERS ---
+                dag_filter = st.multiselect("Filter op Dag:", ["Vrijdag", "Zaterdag", "Zondag"], default=["Vrijdag", "Zaterdag", "Zondag"])
+                stage_filter = st.multiselect("Filter op Stage:", ["Galaxy", "Lunar", "Solar"], default=["Galaxy", "Lunar", "Solar"])
+                
+                # Pas filters direct toe op de weergegeven invullijst
+                gefilterde_acts = [act for act in liquicity_acts if act["Dag"] in dag_filter and act["Stage"] in stage_filter]
+                
                 with st.form(key="form_timetable_isolated"):
                     tijdelijke_vinkjes = {}
-                    for act in liquicity_acts:
+                    for act in gefilterde_acts:
                         a_name = act["Artiest"]
                         al_gevinkt = kiezende_vriend in g_data["timetable"].get(a_name, [])
-                        tijdelijke_vinkjes[a_name] = st.checkbox(f"⏱️ {act['Dag']} {act['Tijd']} | **{a_name}** ({act['Stage']})", value=al_gevinkt)
+                        tijdelijke_vinkjes[a_name] = st.checkbox(f"📅 {act['Dag']} ({act['Tijd']}) | **{a_name}** — [{act['Stage']}]", value=al_gevinkt)
                         
-                    submit_timetable = st.form_submit_button("Mijn Line-up Voorkeuren Opslaan", type="primary")
+                    submit_timetable = st.form_submit_button("💾 Mijn Voorkeuren Opslaan", type="primary")
                     
                     if submit_timetable:
-                        for act in liquicity_acts:
+                        for act in gefilterde_acts:
                             a_name = act["Artiest"]
                             if a_name not in st.session_state.groeps_data["timetable"]:
                                 st.session_state.groeps_data["timetable"][a_name] = []
@@ -389,12 +446,16 @@ else:
                     a_name = act["Artiest"]
                     wie_gaan = g_data["timetable"].get(a_name, [])
                     timetable_data.append({
-                        "Dag": act["Dag"], "Tijd": act["Tijd"], "Artiest": a_name, "Stage": act["Stage"],
+                        "Dag": act["Dag"], "Stage": act["Stage"], "Tijd": act["Tijd"], "Artiest": a_name,
                         "Aantal": len(wie_gaan), "Wie gaan er mee?": ", ".join(wie_gaan) if wie_gaan else "Nog niemand (😭)"
                     })
-                # Sorteer netjes per dag en tijd
+                
+                # DataFrame bouwen en sorteren op de meest populaire acts van je crew
                 df_tt = pd.DataFrame(timetable_data)
-                st.dataframe(df_tt, use_container_width=True, hide_index=True)
+                df_tt_gefilterd = df_tt[df_tt["Dag"].isin(dag_filter) & df_tt["Stage"].isin(stage_filter)]
+                df_tt_gesorteerd = df_tt_gefilterd.sort_values(by="Aantal", ascending=False)
+                
+                st.dataframe(df_tt_gesorteerd, use_container_width=True, hide_index=True)
 
     # ==========================================
     # PAGINA 4: GROEPS-PAKLIJST
