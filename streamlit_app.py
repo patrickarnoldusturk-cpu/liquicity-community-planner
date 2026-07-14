@@ -128,11 +128,12 @@ else:
     st.sidebar.write("---")
     st.sidebar.header("📂 Menu Planner")
     gekozen_menu = st.sidebar.radio(
+    gekozen_menu = st.sidebar.radio(
         "Ga naar:",
         ["👨‍🚀 Liquicity weekend", "💶 Tickets & Spullen Kosten", "🎵 Timetable / Line-up", 
-         "🧳 Groeps-Paklijst", "🚗 Autoreis & Parkeren", "📸 Google Foto's", "🎵 Groeps-Playlist", "🚀 Liquicity Info & Media"],
+         "🧳 Groeps-Paklijst", "🚗 Autoreis & Parkeren", "🗺️ Festival Plattegrond", "📸 Google Foto's", "🎵 Groeps-Playlist", "🚀 Liquicity Info & Media"],
         key="sb_navigation_radio"
-    )
+)
     
     st.markdown(f"### 📍 Je bent nu hier: **{gekozen_menu}**")
     st.write("---")
@@ -408,6 +409,36 @@ else:
                     sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
                     st.success("Parkeerplek succesvol opgeslagen!")
                     st.rerun()
+
+    # ==========================================
+    # PAGINA 5.5: FESTIVAL PLATTEGROND
+    # ==========================================
+    elif gekozen_menu == "🗺️ Festival Plattegrond":
+        st.header("🗺️ Liquicity Festival Map")
+        st.write("Navigeer blindelings tussen de Galaxy, Lunar en Solar stages!")
+
+        if "map_url" not in st.session_state.groeps_data:
+            st.session_state.groeps_data["map_url"] = ""
+
+        with st.form(key="form_map_url"):
+            ingevulde_map = st.text_input("Plak hier de link naar de nieuwste Liquicity festivalmap (of laat leeg voor de standaard kaart):", value=st.session_state.groeps_data["map_url"])
+            submit_map = st.form_submit_button("💾 Plattegrond Link Opslaan")
+            
+            if submit_map:
+                st.session_state.groeps_data["map_url"] = ingevulde_map.strip()
+                sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
+                st.success("Plattegrond succesvol gekoppeld!")
+                st.rerun()
+
+        st.write("---")
+        # Als de crew zelf een kaart heeft gekoppeld, toon die link, anders toon de officiële Instagram map-update
+        kaart_link = st.session_state.groeps_data["map_url"] if st.session_state.groeps_data["map_url"] else "https://www.instagram.com/p/C8e1H2lIZXp/"
+        
+        st.subheader("🎪 Live Kaart Bekijken")
+        st.write("Klik op de knop hieronder om de plattegrond in groot formaat te openen en in te zoomen op de camping en barren:")
+        st.link_button("📂 Open Festival Plattegrond (Groot)", kaart_link, type="primary", use_container_width=True)
+
+
 
     # ==========================================
     # PAGINA 6: GOOGLE FOTO'S (UNIVERSEEL)
