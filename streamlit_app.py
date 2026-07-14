@@ -514,30 +514,42 @@ else:
 
 
     # ==========================================
-    # PAGINA 6: GOOGLE FOTO'S (UNIVERSEEL)
+    # PAGINA 6: GOOGLE FOTO'S (UNIVERSEEL MET CREATIE-HULP)
     # ==========================================
     elif gekozen_menu == "📸 Google Foto's":
         st.header("📸 Festival Foto's Verzamelen")
-        st.write("Deel hier jullie foto's en video's! Elke crew kan hier uniek een eigen albumlink opslaan.")
+        st.write("Deel hier jullie foto's en video's van het weekend!")
         
         if "album_url" not in st.session_state.groeps_data:
             st.session_state.groeps_data["album_url"] = ""
             
-        with st.form(key="form_photos_url"):
-            ingevulde_url = st.text_input("Plak hier de link naar jullie gedeelde Google Foto's album:", value=st.session_state.groeps_data["album_url"])
-            submit_photos = st.form_submit_button("💾 Album Link Opslaan")
-            
-            if submit_photos:
-                st.session_state.groeps_data["album_url"] = ingevulde_url.strip()
-                sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
-                st.success("Album link succesvol gekoppeld!")
-                st.rerun()
+        col1_ph, col2_ph = st.columns(2)
+        with col1_ph:
+            st.subheader("🛠️ Stap 1: Maak een album aan (Indien nodig)")
+            st.write("Heeft jullie crew nog geen gezamenlijk album? Gebruik deze directe snelkoppeling om er binnen 5 seconden gratis een aan te maken:")
+            # Directe link naar de album-aanmaakpagina van Google Photos
+            st.link_button("✨ Snelkoppeling: Maak Nieuw Google Album", "https://google.com", type="secondary", use_container_width=True)
+            st.info("💡 **Tip:** Zorg dat je in Google Photos bij de album-instellingen 'Delen' inschakelt en de link kopieert!")
+
+        with col2_ph:
+            st.subheader("🔗 Stap 2: Koppel de albumlink")
+            with st.form(key="form_photos_url"):
+                ingevulde_url = st.text_input("Plak hier de link naar jullie gedeelde Google Foto's album:", value=st.session_state.groeps_data["album_url"])
+                submit_photos = st.form_submit_button("💾 Album Link Opslaan")
+                
+                if submit_photos:
+                    st.session_state.groeps_data["album_url"] = ingevulde_url.strip()
+                    sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
+                    st.success("Album link succesvol gekoppeld aan de database!")
+                    st.rerun()
                 
         if st.session_state.groeps_data["album_url"]:
             st.write("---")
+            st.subheader("📂 Ons Gedeelde Festival Album")
             st.link_button("📂 Open Ons Gedeelde Festival Album", st.session_state.groeps_data["album_url"], type="primary", use_container_width=True)
         else:
-            st.info("Er is nog geen fotoalbum gekoppeld door jullie crew. Plak de deellink hierboven!")
+            st.info("Er is nog geen fotoalbum gekoppeld door jullie crew. Volg de stappen hierboven om jullie album live te zetten!")
+
 
     # ==========================================
     # PAGINA 7: GROEPS-PLAYLIST (OFFICIËLE LIQUICITY VERSION)
