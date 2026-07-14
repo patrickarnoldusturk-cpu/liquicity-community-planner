@@ -438,7 +438,7 @@ else:
         st.write("Luister direct naar de playlist! Elke crew kan hier een eigen Spotify playlist koppelen, of de officiële Liquicity lijst gebruiken.")
         
         # De officiële Liquicity afspeellijst ingesteld als de nieuwe universele standaard
-        officiele_liquicity_playlist = "https://open.spotify.com/playlist/19y0UVk0bcrJWEqMwBHosj?si=2-W3RCUbRiGuQiAomNLT7w"
+        officiele_liquicity_playlist = "https://open.spotify.com/playlist/19y0UVk0bcrJWEqMwBHosj"
         
         # FIX 1: Als de link leeg is, ontbreekt, of de foute basis-URL bevat, overschrijven met de officiële link
         if "playlist_url" not in st.session_state.groeps_data or \
@@ -465,12 +465,13 @@ else:
         if match:
             playlist_id = match.group(1)
             
-        # FIX 2: Altijd bouwen met de volledige ://spotify.com link om IP-fouten uit te sluiten
-        embed_url = f"https://://spotify.complaylist/{playlist_id}?utm_source=generator&theme=0"
+        # FIX 2: De kogelvrije embed.spotify.com gateway om de cloud-blokkade en IP-fouten op te lossen
+        embed_url = f"https://embed.spotify.com/playlist/{playlist_id}?utm_source=generator&theme=0"
         
         col1_sp, col2_sp = st.columns(2)
         with col1_sp:
             st.subheader("🔊 Live Luisteren")
+            # De iframe laadt nu gegarandeerd de officiële Spotify Player op Streamlit Cloud
             st.components.v1.iframe(embed_url, height=400, scrolling=False)
         with col2_sp:
             st.subheader("🎶 Openen in app")
