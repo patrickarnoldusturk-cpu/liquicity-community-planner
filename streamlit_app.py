@@ -456,7 +456,7 @@ else:
         if match:
             playlist_id = match.group(1)
             
-        embed_url = f"https://spotify.com{playlist_id}?utm_source=generator&theme=0"
+            embed_url = "https://spotify.com"
         
         col1_sp, col2_sp = st.columns(2)
         with col1_sp:
