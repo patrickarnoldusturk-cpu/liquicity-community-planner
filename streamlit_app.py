@@ -6,6 +6,21 @@ from supabase import create_client, Client
 
 # App configuratie
 st.set_page_config(page_title="Liquicity Community Planner 2026", page_icon="👨‍🚀", layout="wide")
+# Kogelvrije styling die direct bij het opstarten het menu vergroot
+st.html("""
+    <style>
+    [data-testid="stSidebarRadio"] label, 
+    [data-testid="stSidebarRadio"] label p, 
+    [data-testid="stSidebarRadio"] label span {
+        font-size: 20px !important;
+        font-weight: 500 !important;
+    }
+    [data-testid="stSidebarRadio"] div[role="radiogroup"] {
+        gap: 12px !important;
+    }
+    </style>
+""")
+
 
 # ==========================================
 # 🔐 SUPABASE DATABASE CONNECTIE (LIVE)
@@ -128,24 +143,6 @@ else:
     st.sidebar.write("---")
     st.sidebar.header("📂 Menu Planner")
     
-    # FIX: Dit dwingt zowel de knoppen als de tekst-labels en emoji's naar 20px
-    st.html("""
-        <style>
-        /* Target de labels, de paragrafen én de losse tekstelementen binnen de radio-container */
-        [data-testid="stSidebarRadio"] label, 
-        [data-testid="stSidebarRadio"] label p, 
-        [data-testid="stSidebarRadio"] label span,
-        [data-testid="stSidebarRadio"] div[data-testid="stWidgetMarkdownClaims"] p {
-            font-size: 20px !important;
-            font-weight: 500 !important;
-            line-height: 1.4 !important;
-        }
-        /* Geeft extra tussenruimte tussen de grote menu-opties op mobiel */
-        [data-testid="stSidebarRadio"] div[role="radiogroup"] {
-            gap: 14px !important;
-        }
-        </style>
-    """)
 
     gekozen_menu = st.sidebar.radio(
         "Ga naar:",
