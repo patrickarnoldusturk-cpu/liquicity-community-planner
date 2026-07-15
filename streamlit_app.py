@@ -699,45 +699,28 @@ else:
     elif gekozen_menu == "🗺️ Festival Plattegrond":
         st.header("🗺️ Liquicity Festival Map")
         st.write("Navigeer blindelings tussen de Galaxy, Lunar en Solar stages!")
-
-        if "map_url" not in st.session_state.groeps_data:
-            st.session_state.groeps_data["map_url"] = ""
-
-        with st.form(key="form_map_url"):
-            ingevulde_map = st.text_input("Plak hier de link naar de nieuwste Liquicity festivalmap (of laat leeg voor de standaard kaart):", value=st.session_state.groeps_data["map_url"])
-            submit_map = st.form_submit_button("💾 Plattegrond Link Opslaan")
-            
-            if submit_map:
-                st.session_state.groeps_data["map_url"] = ingevulde_map.strip()
-                sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
-                st.success("Plattegrond succesvol gekoppeld!")
-                st.rerun()
-
         st.write("---")
         
         st.subheader("🎪 Live Kaart Bekijken")
         
-        # 1. Bepaal welke kaart getoond moet worden (custom link of de standaard placeholder)
-        if st.session_state.groeps_data["map_url"]:
-            plattegrond_bron = st.session_state.groeps_data["map_url"]
-        else:
-            # Standaard sfeervolle placeholder totdat de crew de echte link erin plakt
-            plattegrond_bron = "https://unsplash.com"
-
-        # 2. Toon de afbeelding direct in de app
+        # Streamlit laadt hier direct de afbeelding die je zojuist in GitHub hebt gezet
         try:
             st.image(
-                plattegrond_bron, 
+                "plattegrond.png", 
                 caption="Liquicity Festival Terrein - Geestmerambacht",
                 use_container_width=True
             )
         except Exception:
-            st.error("⚠️ De ingevoerde link is geen directe afbeelding-URL (eindigend op .jpg of .png).")
-            st.info("Zorg dat je op internet met de rechtermuisknop op de plattegrond klikt en kiest voor 'Adres van afbeelding kopiëren'.")
-        
-        # 3. Behoud de handige grote knop voor telefoons (om extern te kunnen zoomen)
-        st.link_button("📂 Open Plattegrond in Origineel Groot Formaat", plattegrond_bron, type="primary", use_container_width=True)
+            st.info("🌌 De plattegrond wordt geladen zodra 'plattegrond.png' is geüploade naar je GitHub!")
 
+        st.write("---")
+        # Handige grote knop voor telefoons op het festivalterrein zelf
+        st.link_button(
+            "📂 Open Officiële Liquicity Map Website", 
+            "https://festival.liquicity.com/practical/map/", 
+            type="primary", 
+            use_container_width=True
+        )
 
 
 
