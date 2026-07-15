@@ -671,7 +671,7 @@ else:
             
             st.write("---")
             st.subheader("🎫 Parkeerkaart Herinnering")
-            st.warning("⚠️ Vergeet niet vooraf jullie **Parkeerticket** online te kopen via de offiziële Liquicity website!")
+            st.warning("⚠️ Vergeet niet vooraf jullie **Parkeerticket** online te kopen via de officiële Liquicity website!")
             st.warning("⚠️ Let op: Parkeerkaarten moeten vooraf online worden gekocht en zijn het goedkoopst in de voorverkoop!")
             st.link_button("🎟️ Koop Je Parkeerticket Online", "https://shop.celebratix.io/?t=4a8fb", type="secondary", use_container_width=True)
 
