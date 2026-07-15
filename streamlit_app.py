@@ -160,44 +160,65 @@ else:
 # PAGINA 1: DATUMS / FESTIVALS PRIKKEN
 # ==========================================
     if gekozen_menu == "👨‍🚀 Liquicity weekend":
-        st.header("Welk festival weekend gaan we pakken?")
+        st.header("🌌 Welcome to the Galaxy!")
+        
+        # Live afteller bovenaan de pagina (Liquicity 2026 start op vrijdag 17 juli)
+        import datetime
+        festival_datum = datetime.date(2026, 7, 17)
+        vandaag = datetime.date.today()
+        dagen_te_gaan = (festival_datum - vandaag).days
+        
+        if dagen_te_gaan > 0:
+            st.metric(label="🚀 Dagen tot Liquicity Festival 2026", value=f"{dagen_te_gaan} dagen")
+        elif dagen_te_gaan == 0:
+            st.balloons()
+            st.success("✨ TIME TO FLY! Liquicity begint VANDAAG! ✨")
+        else:
+            st.info("🌌 Geniet na van een geweldige editie!")
+            
+        st.write("---")
         
         if len(g_data["vrienden"]) == 0:
-            st.info("Voeg eerst namen toe in de zijbalk om je voorkeur door te geven!")
+            st.info("🌌 Voeg eerst de namen van je festivalcrew toe in de zijbalk om je voorkeuren door te geven!")
         else:
             col1, col2 = st.columns(2)
             with col1:
-                st.subheader("Jouw voorkeur doorgeven")
-                naam = st.selectbox("Wie ben je?", g_data["vrienden"], key="p1_user_selectbox")
-                opties = ["Volledig Liquicity Weekend 2026", "Alleen Vrijdag", "Alleen Zaterdag", "Alleen Zondag"]
+                st.subheader("🪐 Jouw Festival Ticket claimen")
+                naam = st.selectbox("Wie van de crew ben je?", g_data["vrienden"], key="p1_user_selectbox")
+                
+                # Aangepast naar de echte ticket-opties van Liquicity
+                opties = ["Volledig Weekend Ticket (incl. Camping)", "Alleen Vrijdag", "Alleen Zaterdag", "Alleen Zondag"]
                 
                 huidige_voorkeur = g_data["datums"].get(naam, [])
                 
                 with st.form(key="form_dates_static"):
-                    gekozen_datums = st.multiselect("Welke festivals/weekenden kun jij?", opties, default=huidige_voorkeur, key="widget_dates_static")
-                    submit_dates = st.form_submit_button("Voorkeur Opslaan")
+                    gekozen_datums = st.multiselect("Welke dagen ben jij erbij in Geestmerambacht?", opties, default=huidige_voorkeur, key="widget_dates_static")
+                    submit_dates = st.form_submit_button("💾 Mijn Voorkeur Opslaan")
                     
                     if submit_dates:
                         st.session_state.groeps_data["datums"][naam] = gekozen_datums
                         sla_groep_data_op(st.session_state.groeps_id, st.session_state.groeps_data)
-                        st.success("Voorkeur opgeslagen!")
+                        st.success("✨ Crew voorkeur succesvol opgeslagen!")
                         st.rerun()
                     
             with col2:
-                st.subheader("📊 Live Stemresultaten")
+                st.subheader("📊 Crew Bezettingsgraad")
                 stem_data = []
                 for persoon, festivals in g_data["datums"].items():
                     for f in festivals:
-                        stem_data.append({"Festival": f, "Wie": persoon, "Aantal": 1})
+                        stem_data.append({"Ticket type": f, "Crewlid": persoon, "Aantal": 1})
                 if stem_data:
                     df_stemmen = pd.DataFrame(stem_data)
-                    st.bar_chart(data=df_stemmen, x="Festival", y="Aantal", color="Wie", stack=True)
+                    # Mooie grafiek van wie welke tickets pakt
+                    st.bar_chart(data=df_stemmen, x="Ticket type", y="Aantal", color="Crewlid", stack=True)
                     st.write("**Gedetailleerd overzicht:**")
                     for p, festivals in g_data["datums"].items():
                         if festivals:
-                            st.write(f"• **{p}** heeft gestemd op: {', '.join(festivals)}")
+                            st.write(f"• 🧑‍🚀 **{p}** rockt mee op: {', '.join(festivals)}")
                 else:
-                    st.info("Nog geen stemmen uitgebracht.")
+                    st.info("Nog geen astronauten die hun aanwezigheid hebben doorgegeven.")
+
+
 
     # ==========================================
     # PAGINA 2: KOSTEN VERREKENEN
@@ -264,7 +285,7 @@ else:
                 else:
                     st.info("Nog geen groepsuitgaven ingevoerd.")
                     
-        # ==========================================
+    # ==========================================
     # PAGINA 2.5: TICKET STATUS (VEILIG OVERZICHT)
     # ==========================================
     elif gekozen_menu == "🎫 Ticket Status":
