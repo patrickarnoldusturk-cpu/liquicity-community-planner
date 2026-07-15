@@ -1,6 +1,6 @@
 [theme]
-primaryColor = "#00f0ff"          # Neon cyaan voor actieve selecties
-backgroundColor = "#0d0b18"       # Deep space heel donkerpaars
-secondaryBackgroundColor = "#1b1532" # Iets lichter paars voor de Sidebar
+primaryColor = "#4cc9f0"          # Subtieler, zachter oceaanblauw (niet zo fel neon)
+backgroundColor = "#1a162b"       # Iets lichter, sfeervol "deep galaxy" paars
+secondaryBackgroundColor = "#241f3b" # Rustig paars voor de Sidebar (goede balans)
 textColor = "#ffffff"             # Wit voor perfect leesbare tekst
 font = "sans serif"               # Strak en modern leesbaar
