@@ -714,12 +714,30 @@ else:
                 st.rerun()
 
         st.write("---")
-        # Als de crew zelf een kaart heeft gekoppeld, toon die link, anders toon de officiële Instagram map-update
-        kaart_link = st.session_state.groeps_data["map_url"] if st.session_state.groeps_data["map_url"] else "https://festival.liquicity.com/practical/map/"
         
         st.subheader("🎪 Live Kaart Bekijken")
-        st.write("Klik op de knop hieronder om de plattegrond in groot formaat te openen en in te zoomen op de camping en barren:")
-        st.link_button("📂 Open Festival Plattegrond (Groot)", kaart_link, type="primary", use_container_width=True)
+        
+        # 1. Bepaal welke kaart getoond moet worden (custom link of de standaard placeholder)
+        if st.session_state.groeps_data["map_url"]:
+            plattegrond_bron = st.session_state.groeps_data["map_url"]
+        else:
+            # Standaard sfeervolle placeholder totdat de crew de echte link erin plakt
+            plattegrond_bron = "https://unsplash.com"
+
+        # 2. Toon de afbeelding direct in de app
+        try:
+            st.image(
+                plattegrond_bron, 
+                caption="Liquicity Festival Terrein - Geestmerambacht",
+                use_container_width=True
+            )
+        except Exception:
+            st.error("⚠️ De ingevoerde link is geen directe afbeelding-URL (eindigend op .jpg of .png).")
+            st.info("Zorg dat je op internet met de rechtermuisknop op de plattegrond klikt en kiest voor 'Adres van afbeelding kopiëren'.")
+        
+        # 3. Behoud de handige grote knop voor telefoons (om extern te kunnen zoomen)
+        st.link_button("📂 Open Plattegrond in Origineel Groot Formaat", plattegrond_bron, type="primary", use_container_width=True)
+
 
 
 
