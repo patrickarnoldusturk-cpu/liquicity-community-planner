@@ -162,9 +162,9 @@ else:
     if gekozen_menu == "👨‍🚀 Liquicity weekend":
         st.header("🌌 Welcome to the Galaxy!")
         
-        # Live afteller bovenaan de pagina (Liquicity 2026 start op vrijdag 17 juli)
+        # Live afteller aangepast naar de échte startdatum: 24 juli 2026!
         import datetime
-        festival_datum = datetime.date(2026, 7, 17)
+        festival_datum = datetime.date(2026, 7, 24)
         vandaag = datetime.date.today()
         dagen_te_gaan = (festival_datum - vandaag).days
         
@@ -175,6 +175,7 @@ else:
             st.success("✨ TIME TO FLY! Liquicity begint VANDAAG! ✨")
         else:
             st.info("🌌 Geniet na van een geweldige editie!")
+
             
         st.write("---")
         
