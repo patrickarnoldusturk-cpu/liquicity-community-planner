@@ -189,11 +189,22 @@ else:
                 # Aangepast naar de echte ticket-opties van Liquicity
                 opties = ["Volledig Weekend Ticket (incl. Camping)", "Alleen Vrijdag", "Alleen Zaterdag", "Alleen Zondag"]
                 
-                huidige_voorkeur = g_data["datums"].get(naam, [])
+                # 1. Haal de opgeslagen data op
+                opgeslagen_voorkeur = g_data["datums"].get(naam, [])
                 
+                # 2. Filter oude festivalnamen eruit om de crash te voorkomen
+                huidige_voorkeur = [v for v in opgeslagen_voorkeur if v in opties]
+                
+                # 3. Start het formulier met de gefilterde lijst en de knop
                 with st.form(key="form_dates_static"):
-                    gekozen_datums = st.multiselect("Welke dagen ben jij erbij in Geestmerambacht?", opties, default=huidige_voorkeur, key="widget_dates_static")
+                    gekozen_datums = st.multiselect(
+                        "Welke dagen ben jij erbij in Geestmerambacht?", 
+                        opties, 
+                        default=huidige_voorkeur, 
+                        key="widget_dates_static"
+                    )
                     submit_dates = st.form_submit_button("💾 Mijn Voorkeur Opslaan")
+
                     
                     if submit_dates:
                         st.session_state.groeps_data["datums"][naam] = gekozen_datums
