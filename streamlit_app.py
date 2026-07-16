@@ -845,26 +845,24 @@ else:
         with col2_sp:
             st.subheader("🟠 SoundCloud Sets")
             
-            # Sfeervolle festival-infobox in plaats van de weigerende speler
-            st.markdown(
-                """
-                <div style="background-color: #1b1532; padding: 20px; border-radius: 10px; border: 1px solid #3a86ff; text-align: center; margin-bottom: 15px;">
-                    <span style="font-size: 40px;">🛸</span>
-                    <h4 style="color: #70d6ff; margin-top: 10px; margin-bottom: 5px;">Liquicity Galaxy Mixes</h4>
-                    <p style="font-size: 14px; color: #ffffff;">Luister naar de dikste Drum & Bass livesets en legendarische Yearmixes direct via SoundCloud.</p>
-                </div>
-                """, 
-                unsafe_allow_html=True
-            )
+            # De HTML code van SoundCloud
+            # Let op: we gebruiken unsafe_allow_html=True in st.markdown om de blokkade te omzeilen
+            soundcloud_html = """
+            <iframe 
+                width="100%" 
+                height="400" 
+                scrolling="no" 
+                frameborder="no" 
+                allow="autoplay" 
+                src="https://soundcloud.com/liquicityrecords/sets/liquicity-festival-2025-full">
+            </iframe>
+            """
             
-            # Grote opvallende knop die perfect werkt op telefoons
-            st.link_button(
-                "🔥 Open Liquicity Sets op SoundCloud", 
-                "https://soundcloud.com/liquicityrecords/sets/liquicity-festival-2025-full", 
-                type="primary", 
-                use_container_width=True
-            )
-
+            # Dit laadt de speler rechtstreeks in de browser van de gebruiker zonder Streamlit-tussenkomst
+            st.markdown(soundcloud_html, unsafe_allow_html=True)
+            
+            st.write("") # Stukje witruimte voor de netheid
+            st.link_button("🔥 Open SoundCloud Website", "https://soundcloud.com/liquicityrecords/sets/liquicity-festival-2025-full", type="secondary", use_container_width=True)
 
 
 
