@@ -843,49 +843,42 @@ else:
             st.link_button("🎶 Open in Spotify-App", sp_url, type="primary", use_container_width=True)
             
         with col2_sp:
-            st.subheader("🟠 SoundCloud Live Sets")
+            st.subheader("🟠 SoundCloud Yearmix")
             
-            # Jouw exacte, officiële Liquicity Festival 2025 sets link!
-            soundcloud_url = "https://soundcloud.com/liquicityrecords/sets/liquicity-festival-2025-full"
+            # De HTML code voor de officiële Liquicity Yearmix 2025 van Maduk
+            # Gekleurd in jouw koningsblauwe app-stijl (#3a86ff)
+            soundcloud_track_html = """
+            <iframe 
+                width="100%" 
+                height="166" 
+                scrolling="no" 
+                frameborder="no" 
+                allow="autoplay" 
+                src="https://soundcloud.com">
+            </iframe>
+            """
             
-            # De kogelvrije gateway link die SoundCloud toestaat om sets extern af te spelen
-            secure_embed_url = "https://soundcloud.com"
+            # Injecteer de speler rechtstreeks in de browser van je crewleden
+            st.markdown(soundcloud_track_html, unsafe_allow_html=True)
             
-            # Een prachtige festival-mediabox in jouw paars-indigo stijl
+            # Sfeervolle infobox om de ruimte netjes op te vullen naast de grotere Spotify player
             st.markdown(
-                f"""
-                <div style="
-                    background: linear-gradient(135deg, #181b35 0%, #0f1123 100%); 
-                    padding: 22px; 
-                    border-radius: 12px; 
-                    border: 2px solid #3a86ff; 
-                    text-align: center;
-                    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-                    margin-bottom: 12px;
-                    height: 295px;
-                ">
-                    <span style="font-size: 50px;">🛸</span>
-                    <h4 style="color: #70d6ff; font-family: sans-serif; margin-top: 15px; margin-bottom: 5px; letter-spacing: 1px;">
-                        LIQUICITY FESTIVAL 2025
-                    </h4>
-                    <p style="font-size: 13px; color: #a0a5c5; font-family: sans-serif; margin-bottom: 5px;">
-                        De officiële full-length live-sets staan voor je klaar!
-                    </p>
-                    <p style="font-size: 12px; color: #3a86ff; font-family: sans-serif; font-weight: bold;">
-                        ✨ Sub Focus, Maduk, Andromedik & More ✨
-                    </p>
+                """
+                <div style="background-color: #181b35; padding: 15px; border-radius: 10px; border: 1px solid #3a86ff; text-align: center; margin-top: 10px;">
+                    <p style="font-size: 13px; color: #a0a5c5; margin: 0;">🌌 <b>Welcome to the Galaxy of Dreams!</b><br>Schakel over naar SoundCloud om de mix gratis te downloaden voor offline gebruik op de camping!</p>
                 </div>
                 """, 
                 unsafe_allow_html=True
             )
             
-            # De grote, veilige startknop die de livesets direct opent (en perfect werkt op mobiel in de tent!)
+            # Grote back-up knop die direct naar de track op de SoundCloud website/app leidt
             st.link_button(
-                "🔥 Open 2025 Live Sets op SoundCloud", 
-                soundcloud_url, 
-                type="primary", 
+                "🔥 Open Yearmix 2025 op SoundCloud", 
+                "https://soundcloud.com/liquicityrecords/yearmix2025mixedbymaduk", 
+                type="secondary", 
                 use_container_width=True
             )
+
 
 
     # ==========================================
