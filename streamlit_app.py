@@ -878,7 +878,7 @@ else:
             # De grote, opvallende oranje SoundCloud-knop die de Yearmix direct opent op mobiel of desktop
             st.link_button(
                 "🔥 Start Maduk Yearmix 2025", 
-                "https://soundcloud.com", 
+                "https://soundcloud.com/liquicityrecords/yearmix2025mixedbymaduk", 
                 type="primary", 
                 use_container_width=True
             )
