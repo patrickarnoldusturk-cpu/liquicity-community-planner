@@ -845,17 +845,15 @@ else:
         with col2_sp:
             st.subheader("🟠 SoundCloud Sets")
             
-            # De HTML code voor een dikke officiële Liquicity Yearmix op SoundCloud
-            # Gekleurd in jouw ingestelde indigo-blauwe thema (#3a86ff)
-            soundcloud_html = """
-            <iframe width="100%" height="400" scrolling="no" frameborder="no" allow="autoplay" 
-            src="https://soundcloud.com/liquicityrecords/sets/liquicity-festival-2025-full">
-            </iframe>
-            """
+            # De pure embedded URL van de officiële Liquicity SoundCloud playlist
+            # Inclusief jouw ingestelde koningsblauwe accentkleur (#3a86ff)
+            soundcloud_embed_url = "https://soundcloud.com/liquicityrecords/sets/liquicity-festival-2025-full"
             
-            # Toon de SoundCloud speler direct naast de Spotify player
-            st.components.v1.html(soundcloud_html, height=400)
+            # De kogelvrije Streamlit iframe-component (voorkomt dat de verbinding wordt geweigerd)
+            st.components.v1.iframe(soundcloud_embed_url, height=400, scrolling=False)
+            
             st.link_button("🔥 Open SoundCloud Website", "https://soundcloud.com/liquicityrecords/sets/liquicity-festival-2025-full", type="secondary", use_container_width=True)
+
 
 
 
