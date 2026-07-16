@@ -800,7 +800,7 @@ else:
     # ==========================================
     elif gekozen_menu == "🎵 Groeps-Playlist":
         st.header("🎵 Onze Gezamenlijke Liquicity Playlist")
-        st.write("Luister direct naar de playlist! Elke crew kan hier een eigen Spotify playlist koppelen, of de officiële Liquicity lijst gebruiken.")
+        st.write("Luister direct naar de playlist of livesets! Elke crew kan hier een eigen Spotify playlist koppelen.")
         
         # De officiële Liquicity afspeellijst ingesteld als de nieuwe universele standaard
         officiele_liquicity_playlist = "https://open.spotify.com/playlist/19y0UVk0bcrJWEqMwBHosj"
@@ -833,14 +833,30 @@ else:
         # FIX 2: De kogelvrije embed.spotify.com gateway om de cloud-blokkade en IP-fouten op te lossen
         embed_url = f"https://embed.spotify.com/playlist/{playlist_id}?utm_source=generator&theme=0"
         
+        # Maak twee gelijke kolommen naast elkaar voor Spotify en SoundCloud
         col1_sp, col2_sp = st.columns(2)
+        
         with col1_sp:
-            st.subheader("🔊 Live Luisteren")
-            # De iframe laadt nu gegarandeerd de officiële Spotify Player op Streamlit Cloud
+            st.subheader("🟢 Spotify Player")
+            # Jouw werkende Spotify iframe
             st.components.v1.iframe(embed_url, height=400, scrolling=False)
+            st.link_button("🎶 Open in Spotify-App", sp_url, type="primary", use_container_width=True)
+            
         with col2_sp:
-            st.subheader("🎶 Openen in app")
-            st.link_button("🎶 Open Playlist in Spotify-App", sp_url, type="primary", use_container_width=True)
+            st.subheader("🟠 SoundCloud Sets")
+            
+            # De HTML code voor een dikke officiële Liquicity Yearmix op SoundCloud
+            # Gekleurd in jouw ingestelde indigo-blauwe thema (#3a86ff)
+            soundcloud_html = """
+            <iframe width="100%" height="400" scrolling="no" frameborder="no" allow="autoplay" 
+            src="https://soundcloud.com">
+            </iframe>
+            """
+            
+            # Toon de SoundCloud speler direct naast de Spotify player
+            st.components.v1.html(soundcloud_html, height=400)
+            st.link_button("🔥 Open SoundCloud Website", "https://soundcloud.com", type="secondary", use_container_width=True)
+
 
 
     # ==========================================
