@@ -845,14 +845,25 @@ else:
         with col2_sp:
             st.subheader("🟠 SoundCloud Sets")
             
-            # De pure embedded URL van de officiële Liquicity SoundCloud playlist
-            # Inclusief jouw ingestelde koningsblauwe accentkleur (#3a86ff)
-            soundcloud_embed_url = "https://soundcloud.com/liquicityrecords/sets/liquicity-festival-2025-full"
+            # Sfeervolle festival-infobox in plaats van de weigerende speler
+            st.markdown(
+                """
+                <div style="background-color: #1b1532; padding: 20px; border-radius: 10px; border: 1px solid #3a86ff; text-align: center; margin-bottom: 15px;">
+                    <span style="font-size: 40px;">🛸</span>
+                    <h4 style="color: #70d6ff; margin-top: 10px; margin-bottom: 5px;">Liquicity Galaxy Mixes</h4>
+                    <p style="font-size: 14px; color: #ffffff;">Luister naar de dikste Drum & Bass livesets en legendarische Yearmixes direct via SoundCloud.</p>
+                </div>
+                """, 
+                unsafe_allow_html=True
+            )
             
-            # De kogelvrije Streamlit iframe-component (voorkomt dat de verbinding wordt geweigerd)
-            st.components.v1.iframe(soundcloud_embed_url, height=400, scrolling=False)
-            
-            st.link_button("🔥 Open SoundCloud Website", "https://soundcloud.com/liquicityrecords/sets/liquicity-festival-2025-full", type="secondary", use_container_width=True)
+            # Grote opvallende knop die perfect werkt op telefoons
+            st.link_button(
+                "🔥 Open Liquicity Sets op SoundCloud", 
+                "https://soundcloud.com/liquicityrecords/sets/liquicity-festival-2025-full", 
+                type="primary", 
+                use_container_width=True
+            )
 
 
 
