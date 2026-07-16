@@ -849,13 +849,13 @@ else:
             # Gekleurd in jouw ingestelde indigo-blauwe thema (#3a86ff)
             soundcloud_html = """
             <iframe width="100%" height="400" scrolling="no" frameborder="no" allow="autoplay" 
-            src="https://soundcloud.com">
+            src="https://soundcloud.com/liquicityrecords/sets/liquicity-festival-2025-full">
             </iframe>
             """
             
             # Toon de SoundCloud speler direct naast de Spotify player
             st.components.v1.html(soundcloud_html, height=400)
-            st.link_button("🔥 Open SoundCloud Website", "https://soundcloud.com", type="secondary", use_container_width=True)
+            st.link_button("🔥 Open SoundCloud Website", "https://soundcloud.com/liquicityrecords/sets/liquicity-festival-2025-full", type="secondary", use_container_width=True)
 
 
 
